@@ -1,4 +1,3 @@
-%%writefile app.py
 import streamlit as st
 from groq import Groq
 from pypdf import PdfReader
@@ -14,32 +13,15 @@ st.set_page_config(
 # ---------------- STYLING ----------------
 st.markdown("""
 <style>
-body {
-    background-color: #f5f5f5;
-    color: #0f1113;
-}
-h1, h2, h3, h4 {
-    color: #1f2937;
-}
+body {background-color: #f5f5f5; color: #0f1113;}
+h1, h2, h3, h4 {color: #1f2937;}
 .stButton>button {
-    background-color: #4f46e5;
-    color: white;
-    font-weight: bold;
-    border-radius: 8px;
-    padding: 0.5em 1em;
-}
-.stButton>button:hover {
-    background-color: #6366f1;
-    color: white;
-}
+    background-color: #4f46e5; color: white; font-weight: bold;
+    border-radius: 8px; padding: 0.5em 1em;}
+.stButton>button:hover {background-color: #6366f1; color: white;}
 .stTextInput>div>input, .stTextArea>div>textarea, .stSelectbox>div>div>div {
-    border-radius: 6px;
-    border: 1px solid #cbd5e1;
-    padding: 0.5em;
-}
-.stFileUploader>div>input {
-    padding: 0.4em;
-}
+    border-radius: 6px; border: 1px solid #cbd5e1; padding: 0.5em;}
+.stFileUploader>div>input {padding: 0.4em;}
 </style>
 """, unsafe_allow_html=True)
 
@@ -48,7 +30,7 @@ st.sidebar.title("🎓 AI Career Assistant")
 st.sidebar.markdown("**Event:** InnovateX-2025")
 st.sidebar.markdown("**Mode:** Solo Project")
 st.sidebar.markdown("**Focus:** AI-powered Career Guidance")
-st.sidebar.markdown("Provide your education, interests, and resume to generate a personalized career roadmap.")
+st.sidebar.markdown("Provide your education, interests, and optional resume to generate a personalized career roadmap.")
 
 # ---------------- MAIN UI ----------------
 st.title("🎓 AI Career & Skill Guidance Assistant")
@@ -84,7 +66,8 @@ goal = st.text_input("Career Goal (optional)")
 st.markdown("---")
 
 # ---------------- API KEY (BACKEND ONLY) ----------------
-api_key = "YOUR_API_KEY"  # Keep your Groq key private
+# Must be set in Streamlit Cloud Secrets as GROQ_API_KEY
+api_key = st.secrets["GROQ_API_KEY"]
 
 # ---------------- AI LOGIC ----------------
 def generate_guidance():
@@ -110,7 +93,7 @@ STRICT OUTPUT FORMAT:
 4. Practical Projects to Build
 5. Next 90-Day Action Plan (weekly steps)
 
-Use clear, professional, and motivating language.
+Use clear, professional, motivating language.
 Avoid buzzwords. Focus on employability and real-world relevance.
 """
 
